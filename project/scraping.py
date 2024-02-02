@@ -1,5 +1,4 @@
 import streamlit as st
-import praw
 import time
 import pandas as pd
 import numpy as np

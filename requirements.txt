@@ -7,7 +7,4 @@ plotly
 wordcloud
 reportlab
 matplotlib
-nltk.sentiment
-nltk.corpus
-nltk.tokenize
-nltk.stem
+nltk

@@ -79,33 +79,33 @@ def classify_sentiment(sum_sentiment):
         return 0
 
 # Função para gerar o PDF
-def generate_pdf(data):
-    pdf_filename = "output.pdf"
+#def generate_pdf(data):
+ #   pdf_filename = "output.pdf"
 
     # Criar um buffer de bytes para o PDF
-    pdf_buffer = BytesIO()
+  #  pdf_buffer = BytesIO()
 
     # Criar um arquivo PDF usando o buffer
-    c = canvas.Canvas(pdf_buffer)
+   # c = canvas.Canvas(pdf_buffer)
 
     # Adicionar conteúdo ao PDF
-    c.drawString(100, 750, "Meu Relatório em PDF")
-    c.drawString(100, 730, "Outro texto aqui...")
+    #c.drawString(100, 750, "Meu Relatório em PDF")
+    #c.drawString(100, 730, "Outro texto aqui...")
 
     # Adicionar informações do DataFrame
-    c.drawString(100, 710, "Dataframe:")
-    df_table = data.to_string()
-    c.drawString(100, 690, df_table)
+    #c.drawString(100, 710, "Dataframe:")
+    #df_table = data.to_string()
+    #c.drawString(100, 690, df_table)
 
     # Fechar o arquivo PDF
-    c.save()
+    #c.save()
 
     # Salvar o buffer como um arquivo PDF
-    pdf_buffer.seek(0)
-    with open(pdf_filename, 'wb') as f:
-        f.write(pdf_buffer.read())
+    #pdf_buffer.seek(0)
+    #with open(pdf_filename, 'wb') as f:
+    #    f.write(pdf_buffer.read())
 
-    return pdf_filename
+    #return pdf_filename
 
 
 # Criar a página em si e seu comportamento
@@ -271,12 +271,12 @@ with st.container():
     st.dataframe(data)
 
 # Download button
-st.title("Gerar PDF no Streamlit")
+#st.title("Gerar PDF no Streamlit")
 # Botão para gerar o PDF
-if st.button("Gerar PDF"):
+#if st.button("Gerar PDF"):
     # Chame a função de geração do PDF
-    pdf_file = generate_pdf(data)
+ #   pdf_file = generate_pdf(data)
     # Gere um link de download para o arquivo PDF
-    st.success(f"PDF gerado com sucesso: [Download PDF]({pdf_file})")
+  #  st.success(f"PDF gerado com sucesso: [Download PDF]({pdf_file})")
 
 # streamlit run /Users/brunosgura/Documents/Graduação/Intercâmbio/FEWP/project/scraping.py --server.address 172.24.212.200 --server.port 8501

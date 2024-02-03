@@ -14,7 +14,6 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
-nltk.download('vader_lexicon')
 
 
 def get_reddit_posts(search_term, no_posts, delay_seconds=2, sort_type='new'):

@@ -9,6 +9,7 @@ from wordcloud import WordCloud
 from io import BytesIO
 from reportlab.pdfgen import canvas
 import matplotlib.pyplot as plt
+import nltk
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize

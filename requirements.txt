@@ -6,7 +6,7 @@ plotly.express
 plotly
 wordcloud
 reportlab
-matplotlib.pyplot
+matplotlib
 nltk.sentiment
 nltk.corpus
 nltk.tokenize

@@ -140,14 +140,21 @@ data['final_sent_str'] = data['final_sentiment'].astype(str)
 # Extrair apenas a parte da data (sem o tempo)
 data['date'] = pd.to_datetime(data['date']).dt.date
 
+# Calculate the ratio of positive to negative posts
+positive_posts = data[data['final_sentiment'] == 1]
+negative_posts = data[data['final_sentiment'] == -1]
+
+good_bad_ratio = len(positive_posts) / len(negative_posts) if len(negative_posts) != 0 else 0
+
 # big numbers
 with st.container():
     st.markdown('### Big Numbers')
-    col1, col2, col3 = st.columns(3)
+    col1, col2, col3, col4 = st.columns(4)
     col1.metric("General Sentiment",round(np.mean(data['sentiment_sum']),2))
     col2.metric("AVG Score", round(np.mean(data['score']),2))
     col3.metric("AVG Comments", round(np.mean(data['num_comments']),2))
-
+    col4.metric("Good/Bad Ratio", round(good_bad_ratio,2))
+    
 # boxplot e scatter
 c1, c2 = st.columns((5,5))
 

@@ -3,7 +3,7 @@ pandas
 numpy
 praw
 plotly.express
-plotly.graph_objs
+plotly
 wordcloud
 io
 reportlab.pdfgen

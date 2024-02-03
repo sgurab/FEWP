@@ -16,6 +16,7 @@ from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 
 nltk.download('punkt')
+nltk.data.path.append('/Users/brunosgura/nltk_data')
 
 def get_reddit_posts(search_term, no_posts, delay_seconds=2, sort_type='new'):
     reddit = praw.Reddit(client_id='yfNKzQkvSYry4HKSLyt18g',

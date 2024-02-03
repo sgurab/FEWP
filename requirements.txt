@@ -1,0 +1,15 @@
+streamlit
+time
+pandas
+numpy
+praw
+plotly.express
+plotly.graph_objs
+wordcloud
+io
+reportlab.pdfgen
+matplotlib.pyplot
+nltk.sentiment
+nltk.corpus
+nltk.tokenize
+nltk.stem

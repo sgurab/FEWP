@@ -5,7 +5,6 @@ praw
 plotly.express
 plotly
 wordcloud
-io
 reportlab.pdfgen
 matplotlib.pyplot
 nltk.sentiment

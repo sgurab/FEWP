@@ -8,3 +8,5 @@ wordcloud
 reportlab
 matplotlib
 nltk
+newspaper
+feedparser

@@ -9,4 +9,4 @@ reportlab
 matplotlib
 nltk
 feedparser
-newspaper3k
+newspaper

@@ -9,4 +9,4 @@ reportlab
 matplotlib
 nltk
 newspaper
-feedparser
+feedparser==6.0.8

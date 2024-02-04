@@ -90,10 +90,14 @@ news_scraper = NewsScraper(sources)
 # Scrape news data
 news_data = news_scraper.scrape(num_articles)
 
+# Create flag
+pd_df = pd.DataFrame(news_data)
+pd_df['sentiment_flag'] = pd_df['sentiment'].apply(lambda x: 1 if x > 0 else (-1 if x < 0 else 0))
+
 # Display news data in a DataFrame
 st.title("News Sentiment Analysis Dashboard")
 st.write("Explore sentiment analysis of today's news.")
-st.dataframe(pd.DataFrame(news_data))
+st.dataframe(pd_df)
 
 # Display sentiment analysis metrics
 with st.container():

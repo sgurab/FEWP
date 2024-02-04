@@ -10,8 +10,10 @@ import dateutil.parser
 import feedparser as fp
 import newspaper
 import pandas as pd
+import matplotlib.pyplot as plt
 from nltk.sentiment import SentimentIntensityAnalyzer
 import streamlit as st
+from wordcloud import WordCloud
 
 class NewsScraper:
     def __init__(self, sources, news_date=date.today()):
@@ -79,6 +81,8 @@ sources = {
 
 # Create a Streamlit web app
 st.set_page_config(layout='wide', initial_sidebar_state='collapsed', page_title="News Sentiment Dashboard", page_icon="📰")
+st.title("News Sentiment Analysis Dashboard")
+st.write("Let's explore the sentiment analysis of today's news.")
 
 # Sidebar for user input
 st.sidebar.header('Explore Today\'s News')
@@ -90,18 +94,32 @@ news_scraper = NewsScraper(sources)
 # Scrape news data
 news_data = news_scraper.scrape(num_articles)
 
-# Create flag
-pd_df = pd.DataFrame(news_data)
-pd_df['sentiment_flag'] = pd_df['sentiment'].apply(lambda x: 1 if x > 0 else (-1 if x < 0 else 0))
-
-# Display news data in a DataFrame
-st.title("News Sentiment Analysis Dashboard")
-st.write("Explore sentiment analysis of today's news.")
-st.dataframe(pd_df)
-
 # Display sentiment analysis metrics
 with st.container():
+    st.markdown('### Big Numbers')
+    col1, col2 = st.columns(2)
+    st.metric("Average Sentiment", round(pd.DataFrame(news_data)['sentiment'].mean(), 2))
+    st.metric("Number of Articles processed", len(news_data))
     st.write("---")
-    st.markdown('### News Sentiment Metrics')
-    st.markdown(f"Average Sentiment: {round(pd.DataFrame(news_data)['sentiment'].mean(), 2)}")
-    st.markdown(f"Number of Articles: {len(news_data)}")
+
+
+# Word Cloud
+all_titles_str = ' '.join(pd.DataFrame(news_data)['title'])
+with st.container():
+    st.write("---")
+    st.markdown('### Wordcloud')
+
+    wordcloud = WordCloud(width=800, height=400, background_color='white').generate(all_titles_str)
+
+    fig, ax = plt.subplots(figsize=(10, 5))
+    ax.imshow(wordcloud, interpolation='bilinear')
+    ax.set_axis_off()
+
+    st.pyplot(fig)
+
+# Display news data in a DataFrame
+with st.container():
+    st.write("---")
+    st.markdown('### Data')
+    st.markdown("Transparency and open sources are crucial to be well informed. Here you won't have just our analysis, you have easy access to our data too!")
+    st.dataframe(pd.DataFrame(news_data))

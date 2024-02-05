@@ -11,9 +11,11 @@ import feedparser as fp
 import newspaper
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
 from nltk.sentiment import SentimentIntensityAnalyzer
 import streamlit as st
 from wordcloud import WordCloud
+import altair as alt
 
 class NewsScraper:
     def __init__(self, sources, news_date=date.today()):
@@ -98,10 +100,24 @@ news_data = news_scraper.scrape(num_articles)
 with st.container():
     st.markdown('### Big Numbers')
     col1, col2 = st.columns(2)
-    st.metric("Average Sentiment", round(pd.DataFrame(news_data)['sentiment'].mean(), 2))
-    st.metric("Number of Articles processed", len(news_data))
+    col1.metric("Average Sentiment", round(pd.DataFrame(news_data)['sentiment'].mean(), 2))
+    col2.metric("Number of Articles processed", len(news_data))
     st.write("---")
 
+# Assume sentiment_scores is a pandas Series containing sentiment scores
+sentiment_scores = pd.DataFrame(news_data)['sentiment']
+
+# Create a DataFrame for Altair
+data = pd.DataFrame({'Sentiment Score': sentiment_scores})
+
+# Create a bar chart with Altair
+chart = alt.Chart(data).mark_bar().encode(
+    alt.X('Sentiment Score:Q', bin=alt.Bin(step=0.1), axis=alt.Axis(title='Sentiment Score')),
+    alt.Y('count():Q', axis=alt.Axis(title='Frequency')),
+)
+
+# Display the chart using Streamlit
+st.altair_chart(chart, use_container_width=True)
 
 # Word Cloud
 all_titles_str = ' '.join(pd.DataFrame(news_data)['title'])
@@ -116,6 +132,38 @@ with st.container():
     ax.set_axis_off()
 
     st.pyplot(fig)
+
+# Find the indices of the 3 highest and 3 lowest sentiment scores
+top_3_indices = pd.DataFrame(news_data)['sentiment'].nlargest(3).index
+bottom_3_indices = pd.DataFrame(news_data)['sentiment'].nsmallest(3).index
+
+# Display information for the 3 highest sentiment scores
+with st.container():
+    st.write("---")
+    st.markdown('### Top 3 Highest Sentiment Articles')
+
+    for index in top_3_indices:
+        st.title(pd.DataFrame(news_data)['title'][index])
+        st.subheader('Summary:')
+        st.write(pd.DataFrame(news_data)['summary'][index])
+        st.subheader('URL:')
+        st.write(pd.DataFrame(news_data)['url'][index])
+        st.subheader('Sentiment Score:')
+        st.write(pd.DataFrame(news_data)['sentiment'][index])
+
+# Display information for the 3 lowest sentiment scores
+with st.container():
+    st.write("---")
+    st.markdown('### Top 3 Lowest Sentiment Articles')
+
+    for index in bottom_3_indices:
+        st.title(pd.DataFrame(news_data)['title'][index])
+        st.subheader('Summary:')
+        st.write(pd.DataFrame(news_data)['summary'][index])
+        st.subheader('URL:')
+        st.write(pd.DataFrame(news_data)['url'][index])
+        st.subheader('Sentiment Score:')
+        st.write(pd.DataFrame(news_data)['sentiment'][index])
 
 # Display news data in a DataFrame
 with st.container():

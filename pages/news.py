@@ -1,6 +1,5 @@
 import nltk
-import subprocess
-subprocess.run(['pip', 'install', 'lxml'])
+import lxml.html.clean
 
 nltk.download('punkt')
 nltk.download('vader_lexicon')

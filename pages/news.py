@@ -1,4 +1,5 @@
 import nltk
+Install lxml[html_clean]
 
 nltk.download('punkt')
 nltk.download('vader_lexicon')

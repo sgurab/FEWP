@@ -1,1 +1,14 @@
 lxml_html_clean
+streamlit
+pandas
+numpy
+praw
+plotly.express
+plotly
+wordcloud
+reportlab
+matplotlib
+nltk
+newspaper3k==0.2.8
+feedparser==6.0.8
+altair

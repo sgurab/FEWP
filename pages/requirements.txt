@@ -8,7 +8,7 @@ plotly
 wordcloud
 reportlab
 matplotlib
-nltk
+nltk==3.8.1
 newspaper3k==0.2.8
 feedparser==6.0.8
 altair
